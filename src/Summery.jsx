@@ -44,15 +44,17 @@ const Summery = () => {
               </td>
               <td>{student.StudentName}</td>
 
-              {days.map((day) => (
-                <td key={day}>
-                  {student.attendance[day] ? (
-                    <span className="badge text-success">P</span>
-                  ) : (
-                    <span className="badge text-danger">A</span>
-                  )}
-                </td>
-              ))}
+              {days.map((day) => {
+                return (
+                  <td key={day}>
+                    {student.attendance[day] ? (
+                      <span className="badge text-success">P</span>
+                    ) : (
+                      <span className="badge text-danger">A</span>
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

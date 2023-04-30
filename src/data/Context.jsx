@@ -17,7 +17,7 @@ export const ContextProvider = ({ children }) => {
     for (let i = 0; i < days; i++) {
       const currentDate = new Date();
       currentDate.setDate(currentDate.getDate() - i);
-      dateArray.push(currentDate.toISOString().slice(0, 10)); // store date as string in yyyy-mm-dd format
+      dateArray.unshift(currentDate.toISOString().slice(0, 10)); // store date as string in yyyy-mm-dd format
     }
     setDays(dateArray);
   }, []);
