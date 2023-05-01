@@ -45,9 +45,13 @@ const Summery = () => {
               <td>{student.StudentName}</td>
 
               {days.map((day) => {
+                const find = student.attendance.find((d) => {
+                  const fd = DateTime.fromJSDate(day).toFormat("dd-MM-yyyy");
+                  return fd == d;
+                });
                 return (
                   <td key={day}>
-                    {student.attendance[day] ? (
+                    {find ? (
                       <span className="badge text-success">P</span>
                     ) : (
                       <span className="badge text-danger">A</span>

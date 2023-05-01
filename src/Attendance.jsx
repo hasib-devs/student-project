@@ -21,7 +21,6 @@ const Attendance = () => {
   }, []);
 
   const setPresent = (id) => {
-    console.log("set present");
     setData((prev) => {
       const newData = [...prev];
       const findIndex = newData.findIndex(
@@ -38,7 +37,6 @@ const Attendance = () => {
   };
 
   const setAbsent = (id) => {
-    console.log("set absent");
     setData((prev) => {
       const newData = [...prev];
       const findIndex = newData.findIndex(
@@ -96,7 +94,7 @@ const Attendance = () => {
                         className={`${
                           student.StudentID == activeStudent &&
                           "bg-primary bg-opacity-50"
-                        } pointer-event`}
+                        } pointer-event text-nowrap`}
                         onClick={() => setActiveStudent(student.StudentID)}
                       >
                         {student.batch}
