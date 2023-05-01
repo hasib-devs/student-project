@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { DateTime } from "luxon";
+import { toast } from "react-toastify";
 
 const Attendance = () => {
   const { data, setData } = useData();
@@ -11,6 +12,7 @@ const Attendance = () => {
   const [activeBatch, setActiveBatch] = useState(null);
   const [value, onChange] = useState(new Date());
   const [activeStudent, setActiveStudent] = useState(null);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     const op = [];
@@ -27,13 +29,15 @@ const Attendance = () => {
         (student) => student.StudentID === id
       );
       newData[findIndex].attendance.push(
-        DateTime.fromJSDate(new Date()).toFormat("dd-MM-yyyy")
+        DateTime.fromJSDate(value).toFormat("dd-MM-yyyy")
       );
       newData[findIndex].attendance = Array.from(
         new Set(newData[findIndex].attendance)
       );
       return newData;
     });
+
+    toast.success("Attendance Marked");
   };
 
   const setAbsent = (id) => {
@@ -43,11 +47,11 @@ const Attendance = () => {
         (student) => student.StudentID === id
       );
       newData[findIndex].attendance = newData[findIndex].attendance.filter(
-        (date) =>
-          date !== DateTime.fromJSDate(new Date()).toFormat("dd-MM-yyyy")
+        (date) => date !== DateTime.fromJSDate(value).toFormat("dd-MM-yyyy")
       );
       return newData;
     });
+    toast.warning("Attendance updated");
   };
   return (
     <div className="p-5 pt-3 m-5 mt-0 vh-100">
@@ -67,6 +71,8 @@ const Attendance = () => {
                 type="text"
                 className="form-control"
                 placeholder="Search..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
           </form>
@@ -88,6 +94,15 @@ const Attendance = () => {
               <tbody>
                 {data
                   .filter((student) => student.batch === activeBatch?.value)
+                  .filter(
+                    (student) =>
+                      student.StudentName.toLowerCase().includes(
+                        searchText.toLowerCase()
+                      ) ||
+                      student.StudentID.toLowerCase().includes(
+                        searchText.toLowerCase()
+                      )
+                  )
                   .map((student) => (
                     <tr key={student.StudentID}>
                       <td

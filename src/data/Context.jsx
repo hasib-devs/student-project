@@ -7,7 +7,7 @@ const DataContext = React.createContext(undefined);
 
 export const ContextProvider = ({ children }) => {
   const [data, setData] = useLocalstorage("data", jsonData);
-  const [activeTab, setactiveTab] = useState(1);
+  const [activeTab, setactiveTab] = useLocalstorage("tab", 1);
   const [days, setDays] = useState([]);
 
   useEffect(() => {

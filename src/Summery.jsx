@@ -46,7 +46,10 @@ const Summery = () => {
 
               {days.map((day) => {
                 const find = student.attendance.find((d) => {
-                  const fd = DateTime.fromJSDate(day).toFormat("dd-MM-yyyy");
+                  const fd = DateTime.fromJSDate(new Date(day)).toFormat(
+                    "dd-MM-yyyy"
+                  );
+
                   return fd == d;
                 });
                 return (
